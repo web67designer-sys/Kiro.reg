@@ -142,7 +142,7 @@ html{scroll-padding-top:86px}body{background:linear-gradient(180deg,#070610 0%,#
 .section-head .kicker{display:inline-flex;padding:5px 9px;border:1px solid rgba(168,117,255,.18);border-radius:999px;background:rgba(144,70,255,.06)}.section-head h2{background:linear-gradient(180deg,#fff,#cfc7d9);background-clip:text;-webkit-background-clip:text;color:transparent}.section-head h2 br+*{color:inherit}
 .feature,.step,.benefit,.info-card,.partner-card,.event-metrics article,.form{box-shadow:0 18px 55px rgba(0,0,0,.23),0 0 0 1px rgba(255,255,255,.018) inset;transition:transform .3s,border-color .3s,box-shadow .3s}.feature:hover,.step:hover,.benefit:hover,.info-card:hover,.partner-card:hover,.event-metrics article:hover{transform:translateY(-4px);box-shadow:0 25px 72px rgba(0,0,0,.34),0 0 32px rgba(144,70,255,.1)}
 .btn-primary{position:relative;overflow:hidden;box-shadow:0 12px 34px rgba(168,117,255,.16)}.btn-primary:after{content:"";position:absolute;inset:-100% -40%;pointer-events:none;background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.38) 50%,transparent 58%);transform:translateX(-65%);transition:transform .65s}.btn-primary:hover:after{transform:translateX(65%)}
-.winner-card{animation:winnerCardFloat 5.4s ease-in-out infinite alternate,winnerBorderPulse 3.8s ease-in-out infinite alternate}.winner-card:nth-child(2){animation-delay:-1.2s}.winner-card:nth-child(3){animation-delay:-2.4s}.winner-card:nth-child(4){animation-delay:-3.6s}.winner-card:before{opacity:1!important;animation-duration:4.2s!important}.winner-card:after{animation:winnerEdgeGlow 2.8s ease-in-out infinite alternate}.winner-award{box-shadow:0 0 18px rgba(168,117,255,.18)}
+.winner-card{animation:winnerCardFloat 5.4s ease-in-out infinite alternate,winnerBorderPulse 3.8s ease-in-out infinite alternate}.winner-card:nth-child(2){animation-delay:-1.2s}.winner-card:nth-child(3){animation-delay:-2.4s}.winner-card:nth-child(4){animation-delay:-3.6s}.winner-card:before{animation-duration:4.2s!important}.winner-card:after{animation:winnerEdgeGlow 2.8s ease-in-out infinite alternate}.winner-award{box-shadow:0 0 18px rgba(168,117,255,.18)}
 @keyframes winnerCardFloat{from{transform:translateY(0)}to{transform:translateY(-7px)}}@keyframes winnerBorderPulse{from{box-shadow:0 24px 70px rgba(0,0,0,.38),0 0 32px rgba(144,70,255,.06)}to{box-shadow:0 29px 82px rgba(0,0,0,.46),0 0 52px rgba(144,70,255,.18)}}@keyframes winnerEdgeGlow{from{opacity:.45}to{opacity:1;filter:drop-shadow(0 0 8px rgba(168,117,255,.35))}}
 .winners-section:after{content:"";position:absolute;pointer-events:none;inset:0;background-image:radial-gradient(circle at 12% 28%,rgba(168,117,255,.07) 0 1px,transparent 2px),radial-gradient(circle at 76% 18%,rgba(255,153,0,.07) 0 1px,transparent 2px);background-size:83px 83px,127px 127px;opacity:.55}
 .winners-section>.wrap{position:relative;z-index:1}
@@ -189,9 +189,7 @@ html{scroll-padding-top:86px}body{background:linear-gradient(180deg,#070610 0%,#
   .kiro-console:before,.live i,.working,.caret{animation:none!important}
   .poster-spark,.ambient-orb{display:none!important}
   .poster-holo{opacity:.34!important;mix-blend-mode:normal!important}
-  .poster-holo:before{transform:translate3d(-18%,0,0) rotate(5deg)!important;opacity:.35!important}
   .poster-holo:after{opacity:.28!important}
-  .inline-pass:before,.winner-card:before{transform:translate3d(-18%,0,0)!important;opacity:.18!important}
   .winner-card{transform:none!important;will-change:auto!important}
   .winner-card:after{opacity:.58!important;filter:none!important}
   .builder-ticker>div{transform:none!important}
@@ -204,15 +202,7 @@ html{scroll-padding-top:86px}body{background:linear-gradient(180deg,#070610 0%,#
 }
 .poster-spark{display:none!important}
 .poster-holo{opacity:.34!important;mix-blend-mode:normal!important}
-.poster-holo:before{
-  transform:translate3d(-18%,0,0) rotate(5deg)!important;
-  opacity:.35!important;
-}
 .poster-holo:after{opacity:.28!important}
-.winner-card:before{
-  transform:translate3d(-18%,0,0)!important;
-  opacity:.18!important;
-}
 .winner-card:after{opacity:.58!important;filter:none!important}
 .poster-frame,.winner-card,.form,
 .feature,.step,.benefit,.info-card,.partner-card,.event-metrics article{
@@ -266,6 +256,49 @@ body{min-height:100%;background-color:#07060d;overscroll-behavior-y:none}
     -webkit-backdrop-filter:none!important;
   }
   .info-card:after,.poster-copy:before{filter:none!important;opacity:.28}
+}
+
+/* Refined effects: no frozen shine; animate only while the component is visible. */
+.poster-holo:before,.inline-pass:before,.winner-card:before{
+  animation:none!important;
+  opacity:0;
+  will-change:auto;
+}
+@keyframes smoothCardSweep{
+  0%{transform:translate3d(-70%,0,0) rotate(var(--shine-angle,0deg));opacity:0}
+  8%{opacity:.5}
+  50%{opacity:.72}
+  92%{opacity:.45}
+  100%{transform:translate3d(70%,0,0) rotate(var(--shine-angle,0deg));opacity:0}
+}
+.poster-frame.fx-active .poster-holo:before{
+  --shine-angle:5deg;
+  animation:smoothCardSweep 7.8s linear infinite!important;
+  will-change:transform,opacity;
+}
+.inline-pass.fx-active:before{
+  animation:smoothCardSweep 8.2s linear infinite!important;
+  will-change:transform,opacity;
+}
+.winner-card.fx-active:before{
+  animation:smoothCardSweep 8.8s linear infinite!important;
+  will-change:transform,opacity;
+}
+.event-lockup.fx-active{
+  animation:kiroSmoothFloat 7s ease-in-out infinite!important;
+  will-change:transform;
+}
+@keyframes kiroSmoothFloat{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-3px,0)}}
+.caret{display:none!important}.ready-section:after{display:none!important}
+@media(max-width:900px){
+  .poster-frame.fx-active .poster-holo:before{animation-duration:11s!important}
+  .inline-pass.fx-active:before{animation-duration:11.5s!important}
+  .winner-card.fx-active:before{animation-duration:12s!important}
+  .event-lockup.fx-active{animation-duration:8s!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .poster-holo:before,.inline-pass:before,.winner-card:before,.event-lockup{animation:none!important}
+  .poster-holo:before,.inline-pass:before,.winner-card:before{display:none!important}
 }
 </style>
 </head>
@@ -10495,7 +10528,7 @@ document.body.classList.add('motion-ready');const revealTargets=[...document.que
 const cursorGlow=document.getElementById('cursorGlow');if(matchMedia('(hover:hover) and (pointer:fine)').matches){document.querySelectorAll('.feature,.step,.benefit,.info-card,.partner-card,.event-metrics article').forEach(card=>{let frame=0,x=0,y=0;card.addEventListener('pointermove',e=>{x=e.clientX;y=e.clientY;if(frame)return;frame=requestAnimationFrame(()=>{frame=0;const r=card.getBoundingClientRect();card.style.setProperty('--mx',`${x-r.left}px`);card.style.setProperty('--my',`${y-r.top}px`)})},{passive:true})})}
 // Navigation state follows the visible section.
 const navLinks=[...document.querySelectorAll('.links a[href^="#"]')];if('IntersectionObserver'in window){const navObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+entry.target.id))}}),{threshold:.35});document.querySelectorAll('main section[id]').forEach(s=>navObserver.observe(s))}
-// Restrained parallax gives depth without compromising readability.
-addEventListener('scroll',()=>{if(!settings.motion||innerWidth<900)return;const y=scrollY;document.querySelector('.hero-bg').style.transform=`translate3d(0,${Math.min(y*.08,48)}px,0) scale(1.035)`;const poster=document.querySelector('.poster-frame');if(poster){const r=poster.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0)poster.style.setProperty('--poster-shift',`${(innerHeight/2-r.top)*.018}px`)}} ,{passive:true});
+// GPU-only highlights run only while visible; off-screen cards consume no animation work.
+const refinedFx=[...document.querySelectorAll('.poster-frame,.inline-pass,.winner-card,.event-lockup')];if('IntersectionObserver'in window&&!matchMedia('(prefers-reduced-motion:reduce)').matches){const fxObserver=new IntersectionObserver(entries=>entries.forEach(entry=>entry.target.classList.toggle('fx-active',entry.isIntersecting)),{threshold:.08,rootMargin:'80px 0px'});refinedFx.forEach(el=>fxObserver.observe(el))}
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a419e4960f592e97',t:'MTc5MDUwNTY1NA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body></html>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a419f73acc222e97',t:'MTc5MDUwNjQxOA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body></html>
