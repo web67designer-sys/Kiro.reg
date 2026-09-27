@@ -224,6 +224,30 @@ html{scroll-padding-top:86px}body{background:linear-gradient(180deg,#070610 0%,#
     box-shadow:0 28px 82px rgba(0,0,0,.42),0 0 0 1px rgba(255,255,255,.04) inset,0 0 44px rgba(144,70,255,.14);
   }
 }
+
+/* Mobile scroll-paint hardening: prevent white compositor flashes and rubber-band gaps. */
+html{background-color:#07060d;color-scheme:dark;overscroll-behavior-y:none}
+body{min-height:100%;background-color:#07060d;overscroll-behavior-y:none}
+@media(max-width:900px){
+  html,body{background:#07060d!important}
+  body:before,.cursor-glow,.winner-orb,.poster-glow{display:none!important}
+  .hero-bg{filter:none!important}
+  .event-lockup{filter:none!important}
+  .header,.header.scrolled{
+    background:#08060f!important;
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+    transform:translateZ(0);
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
+  }
+  .btn-secondary,.countdown,.features,.kiro-console,
+  .poster-status,.poster-frame-caption,.admin-head,.pass-dialog-head{
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+  }
+  .info-card:after,.poster-copy:before{filter:none!important;opacity:.28}
+}
 </style>
 </head>
 <body>
