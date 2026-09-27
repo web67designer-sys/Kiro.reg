@@ -174,6 +174,56 @@ html{scroll-padding-top:86px}body{background:linear-gradient(180deg,#070610 0%,#
   .poster-date-chip strong{font-size:14px}
   .poster-frame:after{right:-45px}
 }
+
+/* Mobile smoothness pass: replace costly perpetual glitter with stable premium light. */
+@media(max-width:900px){
+  .launch-glitter{display:none!important}
+  .event-lockup{animation:none!important;transform:none!important;filter:drop-shadow(0 8px 20px rgba(0,0,0,.38)) drop-shadow(0 0 12px rgba(168,117,255,.16))!important}
+  .hero-copy{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+  .hero-copy:before{animation:none!important;filter:none!important;opacity:.76!important}
+  .poster-holo:before,.poster-holo:after,.poster-glow,.poster-spark,
+  .inline-pass:before,.winner-card,.winner-card:before,.winner-card:after,
+  .ready-section:after,.ambient-orb,.builder-ticker>div,
+  .kiro-console:before,.live i,.working,.caret{animation:none!important}
+  .poster-spark,.ambient-orb{display:none!important}
+  .poster-holo{opacity:.34!important;mix-blend-mode:normal!important}
+  .poster-holo:before{transform:translate3d(-18%,0,0) rotate(5deg)!important;opacity:.35!important}
+  .poster-holo:after{opacity:.28!important}
+  .inline-pass:before,.winner-card:before{transform:translate3d(-18%,0,0)!important;opacity:.18!important}
+  .winner-card{transform:none!important;will-change:auto!important}
+  .winner-card:after{opacity:.58!important;filter:none!important}
+  .builder-ticker>div{transform:none!important}
+}
+
+/* One smooth card-light language on mobile, tablet, laptop and desktop. */
+.poster-holo:before,.poster-holo:after,.poster-glow,.poster-spark,
+.winner-card,.winner-card:before,.winner-card:after{
+  animation:none!important;
+}
+.poster-spark{display:none!important}
+.poster-holo{opacity:.34!important;mix-blend-mode:normal!important}
+.poster-holo:before{
+  transform:translate3d(-18%,0,0) rotate(5deg)!important;
+  opacity:.35!important;
+}
+.poster-holo:after{opacity:.28!important}
+.winner-card:before{
+  transform:translate3d(-18%,0,0)!important;
+  opacity:.18!important;
+}
+.winner-card:after{opacity:.58!important;filter:none!important}
+.poster-frame,.winner-card,.form,
+.feature,.step,.benefit,.info-card,.partner-card,.event-metrics article{
+  border-color:rgba(168,117,255,.24);
+  box-shadow:0 22px 68px rgba(0,0,0,.34),0 0 0 1px rgba(255,255,255,.025) inset,0 0 34px rgba(144,70,255,.08);
+}
+@media(hover:hover) and (pointer:fine){
+  .poster-frame:hover,.winner-card:hover,.feature:hover,.step:hover,.benefit:hover,
+  .info-card:hover,.partner-card:hover,.event-metrics article:hover{
+    border-color:rgba(190,146,255,.52);
+    box-shadow:0 28px 82px rgba(0,0,0,.42),0 0 0 1px rgba(255,255,255,.04) inset,0 0 44px rgba(144,70,255,.14);
+  }
+}
 </style>
 </head>
 <body>
@@ -10405,4 +10455,4 @@ const navLinks=[...document.querySelectorAll('.links a[href^="#"]')];if('Interse
 // Restrained parallax gives depth without compromising readability.
 addEventListener('scroll',()=>{if(!settings.motion||innerWidth<900)return;const y=scrollY;document.querySelector('.hero-bg').style.transform=`translate3d(0,${Math.min(y*.08,48)}px,0) scale(1.035)`;const poster=document.querySelector('.poster-frame');if(poster){const r=poster.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0)poster.style.setProperty('--poster-shift',`${(innerHeight/2-r.top)*.018}px`)}} ,{passive:true});
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a4159a8c3defb089',t:'MTc5MDQ2MDY3OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body></html>
+</body></html>
